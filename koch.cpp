@@ -4,6 +4,7 @@
 #include<cstdlib>
 #include<ctime>
 #include<GL/graph.h>
+#include"printw.h"
 using namespace std;
 int d,choice=1;
 static int power=d;
@@ -70,6 +71,8 @@ void spread(point a, point b, point c, int m)
 void koch(int m)
 {
 	triangle(init_tri[0],init_tri[1],init_tri[2]);
+	printw (0.3, 4.6, 0, "%s : %d", "Succession number", m);
+	glFlush();
 	if(m>0)
 	{
 		findvertex(init_tri[0],init_tri[1],m);
