@@ -3,7 +3,7 @@
 #include<unistd.h>
 #include<cstdlib>
 #include<ctime>
-#include<GL/graph.h>
+#include"graph.h"
 #include"printw.h"
 using namespace std;
 int d,choice=1;
