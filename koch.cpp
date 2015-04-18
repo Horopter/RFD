@@ -99,8 +99,8 @@ void display()
 		glClearColor(1.0,1.0,1.0,1.0);
 		power=i-1;
 		koch(i);
-		sleep(2);
 		glFlush();
+		sleep(2);
 	}
 }
 void init_triangle(float size)
