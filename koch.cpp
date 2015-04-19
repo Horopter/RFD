@@ -1,6 +1,11 @@
 #include<iostream>
 #include<cmath>
-#include<unistd.h>
+#if defined(__gnu_linux__)||defined(__linux__)
+	#include<unistd.h>
+#endif
+#if defined(_WIN32)||defined(__WINDOWS__)||defined(_WIN64)
+	#include<windows.h>
+#endif
 #include<cstdlib>
 #include<ctime>
 #include"graph.h"

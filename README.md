@@ -14,3 +14,4 @@ Version 1.3 : Portability to windows and linux setup by updating the preprocesso
 Version 1.4 : Developed interface to work with in Linux environment using gtkdialog. <br/>
 Version 1.5 : Added scalability of center zoom to the previous version successfully. <br/>
 Version 1.6 : Fixed the problem with reshape function to scale properly. <br/>
+Version 1.7 : Added support to interface in linux systems lacking gtkdialog by altering the route of interface through zenity.<br/>
