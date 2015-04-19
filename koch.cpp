@@ -6,7 +6,7 @@
 #include"graph.h"
 #include"printw.h"
 using namespace std;
-int d,choice=1;
+int d,choice=1,g;
 static int power=d;
 float init_size=1;
 typedef float point[3];
@@ -71,7 +71,6 @@ void spread(point a, point b, point c, int m)
 void koch(int m)
 {
 	triangle(init_tri[0],init_tri[1],init_tri[2]);
-	printw (0.3, 4.6, 0, "%s : %d", "Succession number", m);
 	glFlush();
 	if(m>0)
 	{
@@ -93,19 +92,46 @@ void myReshape(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 	glutPostRedisplay();
 }
-void display()
+void idle_display()
 {
-	for(int i=0;i<=d;i++)
+	int i=0;
+	for(i=0;i<=d;i++)
 	{
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-		glClearColor(1.0,1.0,1.0,1.0);
-		power=i-1;
-		koch(i);
+		glColor3f(1.0,0.0,0.0);
+		g=i;
+		printw (0.3, 4.6, 0, "%s : %d", "Succession number", g);
+		power=g-1;
+		koch(g);
 		glFlush();
-		glutSwapBuffers();
-		sleep(2);
+		sleep(1);
 	}
+	if(i==d) i=0;
+	glutPostRedisplay();
+	
+}
+int cx, cy;
+static GLfloat  scaling = 1.0f;
+static int lasty = 0; 
+void zoom(int x, int y)
+{
+	glutReshapeWindow(cx,cy);
+	int  movy;
+	movy = lasty - y;
+	if ( abs(movy) < 10 ){ scaling  += (float)(movy) / 100.0f;  }
+	if ( scaling < 00.1f) scaling = 0.1f;
+	if ( scaling > 10.0f) scaling = 10.0f;
+	lasty = y;	
+	glFlush();
+	glutPostRedisplay();
+}
+void displayer()
+{
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	glClearColor(1.0,1.0,1.0,1.0);
+	glutSwapBuffers();
+	glScalef(scaling, scaling, scaling);
 }
 void init_triangle(float size)
 {
@@ -131,6 +157,7 @@ int main(int argc, char* argv[])
 		cout << "Enter the initial color of the triangle you wish to see : \n1. RED \n2. GREEN \n3. BLUE \n Enter your choice :";
 		cin >> choice;
 		choice-=1;
+		g=0;
 	#else
 		char *pEnd;
 		if(argc==0)
@@ -142,16 +169,19 @@ int main(int argc, char* argv[])
 		init_size = strtod(pEnd,&pEnd);
 		choice = strtod(pEnd,NULL);
 		choice--;
+		g=0;
 	#endif
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB|GLUT_DEPTH);
 	glutInitWindowSize(m_width,m_height);
-	int cx = glutGet(GLUT_SCREEN_WIDTH);
-	int cy = glutGet(GLUT_SCREEN_HEIGHT);
+	cx = glutGet(GLUT_SCREEN_WIDTH);
+	cy = glutGet(GLUT_SCREEN_HEIGHT);
 	glutInitWindowPosition ((cx-m_width) / 2, (cy-m_height) / 2);
 	glutCreateWindow("Koch curve");
 	init_triangle(init_size);
-	glutDisplayFunc(display);
+	glutDisplayFunc(displayer);
+	glutIdleFunc(idle_display);
+	glutMotionFunc(zoom);
 	glutReshapeFunc(myReshape);
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(1,1,1,1);
