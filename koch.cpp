@@ -184,7 +184,7 @@ int main(int argc, char* argv[])
 	glutMotionFunc(zoom);
 	glutReshapeFunc(myReshape);
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(1,1,1,1);
+	glClearColor(1.0,1.0,1.0,1.0);
 	glutMainLoop();
 	return 0;
 }
