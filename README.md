@@ -11,4 +11,5 @@ Version 1.0 : Koch curve function <br/>
 Version 1.1 : Adding animation to simulate the progress of the function <br/>
 Version 1.2 : Successfully added succession counter using custom library files. <br/>
 Version 1.3 : Portability to windows and linux setup by updating the preprocessor header to check OS type.<br/>
+Version 1.4 : Developed interface to work with in Linux environment using gtkdialog. <br/>
 

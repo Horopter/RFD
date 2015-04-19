@@ -103,6 +103,7 @@ void display()
 		power=i-1;
 		koch(i);
 		glFlush();
+		glutSwapBuffers();
 		sleep(2);
 	}
 }
@@ -114,23 +115,40 @@ void init_triangle(float size)
 }
 int main(int argc, char* argv[])
 {
-	cout << "Enter the number of successions : [0-7] ";
-	cin >> d;
-	cout << "Next you will have to enter the size of the triangle, a float point value between 0 and 5." << endl;
-	cout << "Enter the initial size of the triangle : ";
-	cin >> init_size;
-	if(init_size>5)
-	{
-		cout << "Maximum limit of size is 5. Restart the program. Bye!";
-		exit(0);
-	}
-	cout << "Enter the initial color of the triangle you wish to see : \n1. RED \n2. GREEN \n3. BLUE \n Enter your choice :";
-	cin >> choice;
-	choice-=1;
+	int m_width=600;
+	int m_height=600;
+	#if !(defined(__gnu_linux__)||defined(__linux__))
+		cout << "Enter the number of successions : [0-7] ";
+		cin >> d;
+		cout << "Next you will have to enter the size of the triangle, a float point value between 0 and 5." << endl;
+		cout << "Enter the initial size of the triangle : ";
+		cin >> init_size;
+		if(init_size>5)
+		{
+			cout << "Maximum limit of size is 5. Restart the program. Bye!";
+			exit(0);
+		}
+		cout << "Enter the initial color of the triangle you wish to see : \n1. RED \n2. GREEN \n3. BLUE \n Enter your choice :";
+		cin >> choice;
+		choice-=1;
+	#else
+		char *pEnd;
+		if(argc==0)
+		{
+			cout << "No args.";
+			exit(0);
+		}
+		d = strtod(argv[1],&pEnd);
+		init_size = strtod(pEnd,&pEnd);
+		choice = strtod(pEnd,NULL);
+		choice--;
+	#endif
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB|GLUT_DEPTH);
-	glutInitWindowSize(500,500);
-	glutInitWindowPosition(0,0);
+	glutInitWindowSize(m_width,m_height);
+	int cx = glutGet(GLUT_SCREEN_WIDTH);
+	int cy = glutGet(GLUT_SCREEN_HEIGHT);
+	glutInitWindowPosition ((cx-m_width) / 2, (cy-m_height) / 2);
 	glutCreateWindow("Koch curve");
 	init_triangle(init_size);
 	glutDisplayFunc(display);

@@ -1,0 +1,82 @@
+#!/bin/bash 
+a=5
+b=0
+c=0
+GTKDIALOG=gtkdialog 
+export MAIN_DIALOG=' 
+
+<window title="Koch Snowflake" icon-name="gtk-about" resizable="false" width-request="700" height-request="500"> 
+
+<vbox> 
+	<frame '`gettext $" Successions "`'>
+		<text use-markup="true">
+			<label>"'`gettext $" Enter the number of successions :  "`'"</label>
+		</text>
+	<hbox space-fill="true"> 
+		<combobox>	 
+			<variable>succession</variable> 
+			<item>1</item> 
+			<item>2</item> 
+			<item>3</item>
+			<item>4</item>
+			<item>5</item>
+			<item>6</item>
+			<item>7</item> 
+		</combobox> 
+	</hbox> 
+	</frame>
+<hseparator width-request="240"></hseparator> 
+	<frame '`gettext $" Size selection "`'>
+		<text use-markup="true">
+			<label>"'`gettext $" Enter the size of the triangle :  "`'"</label>
+		</text>
+	<hbox space-fill="true"> 
+		<combobox>	 
+			<variable>size</variable> 
+			<item>1</item> 
+			<item>1.5</item> 
+			<item>2</item>
+			<item>2.5</item> 
+			<item>3</item> 
+			<item>3.5</item>
+			<item>4</item> 
+			<item>4.5</item> 
+			<item>5</item>
+		</combobox> 
+	</hbox> 
+	</frame>
+<hseparator width-request="240"></hseparator> 
+	<frame '`gettext $" Color selection "`'>
+		<text use-markup="true">
+			<label>"'`gettext $" Enter the color of the Koch curve :  "`'"</label>
+		</text>
+	<hbox space-fill="true"> 
+		<combobox>	 
+			<variable>color</variable>
+			<item>1</item> 
+			<item>2</item> 
+			<item>3</item> 
+		</combobox>
+	</hbox> 
+	</frame> 
+<hseparator width-request="240"></hseparator> 
+	<hbox> 
+		<button ok></button> 
+	</hbox> 
+</vbox> 
+</window> 
+'
+$(glc koch.cpp)
+echo "Compilation done." 
+case $1 in 
+	-d | --dump) echo "$MAIN_DIALOG" ;; 
+	*) I=$IFS; IFS="" 
+	for STATEMENTS in  $($GTKDIALOG --program=MAIN_DIALOG --center); do 
+   		eval $STATEMENTS 
+	done 
+	IFS=$I
+	input=`echo "$succession $size $color"`
+	./graph.out "$input";; 
+esac
+
+
