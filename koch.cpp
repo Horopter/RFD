@@ -9,12 +9,15 @@ using namespace std;
 int d,choice=1,g;
 static int power=d;
 float init_size=1;
+int cx, cy;
+static GLfloat  scaling = 1.0f;
+static int lasty = 0;
 typedef float point[3];
 point init_tri[] = 
 {
-	{0,1,0},
-	{0.866,-0.5,0},
-	{-0.866,-0.5,0}
+	{0,10,0},
+	{8.66,-5,0},
+	{-8.66,-5,0}
 };
 point color[] = {{1,0,0},{0,1,0},{0,0,1},{1,1,1}};
 void spread(point a, point b, point c, int m);
@@ -94,35 +97,29 @@ void myReshape(int w, int h)
 }
 void idle_display()
 {
-	int i=0;
-	for(i=0;i<=d;i++)
-	{
+	static int i=0;
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		glColor3f(1.0,0.0,0.0);
 		g=i;
-		printw (0.3, 4.6, 0, "%s : %d", "Succession number", g);
+		printw (-1.6, 0.2, 0, "%s : %d", "Succession number", g);
 		power=g-1;
 		koch(g);
 		glFlush();
 		sleep(1);
-	}
-	if(i==d) i=0;
+		i++;
+	if(i==d+1) i=0;
 	glutPostRedisplay();
 	
 }
-int cx, cy;
-static GLfloat  scaling = 1.0f;
-static int lasty = 0; 
 void zoom(int x, int y)
 {
 	glutReshapeWindow(cx,cy);
 	int  movy;
 	movy = lasty - y;
 	if ( abs(movy) < 10 ){ scaling  += (float)(movy) / 100.0f;  }
-	if ( scaling < 00.1f) scaling = 0.1f;
+	if ( scaling < 1.0) scaling = 1.0f;
 	if ( scaling > 10.0f) scaling = 10.0f;
-	lasty = y;	
-	glFlush();
+	lasty = y;
 	glutPostRedisplay();
 }
 void displayer()
@@ -130,11 +127,13 @@ void displayer()
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glClearColor(1.0,1.0,1.0,1.0);
+	glFlush();
 	glutSwapBuffers();
 	glScalef(scaling, scaling, scaling);
 }
 void init_triangle(float size)
 {
+	init_size/=10;
 	for(int i=0;i<3;i++)
 		for(int j=0;j<3;j++)
 			init_tri[i][j]*=init_size;
