@@ -14,6 +14,8 @@ then
 			$(glc koch.cpp)
 			echo "Compilation done."
 			input=`echo "$succession $size $color"`
+			./graph.out "$input"
+			$(glc zoom.cpp)
 			./graph.out "$input" 
 			exit 0
 		fi

@@ -30,14 +30,10 @@ export MAIN_DIALOG='
 	<hbox space-fill="true"> 
 		<combobox>	 
 			<variable>size</variable> 
-			<item>1</item> 
-			<item>1.5</item> 
-			<item>2</item>
-			<item>2.5</item> 
-			<item>3</item> 
-			<item>3.5</item>
+			<item>1</item>
+			<item>2</item> 
+			<item>3</item>
 			<item>4</item> 
-			<item>4.5</item> 
 			<item>5</item>
 		</combobox> 
 	</hbox> 
@@ -81,11 +77,13 @@ case $1 in
 	then
 		exit 0
 	fi
-	if [ $succession -ge 7 ] || [ $succession -le 0 ] || [[ -n ${succesion//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for number of successions. Click Finish to exit."; exit ;fi
-	if [ $size -ge 5 ] || [ $size -le 1 ] || [[ -n ${size//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for initial size. Click Finish to exit."; exit ;fi
-	if [ $color -ge 3 ] || [ $color -le 1 ] || [[ -n ${color//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for the color. Click Finish to exit."; exit ;fi
+	if [ $succession -gt 7 ] || [ $succession -lt 0 ] || [[ -n ${succesion//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for number of successions. Click Finish to exit."; exit ;fi
+	if [ $size -gt 5 ] || [ $size -lt 1 ] || [[ -n ${size//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for initial size. Click Finish to exit."; exit ;fi
+	if [ $color -gt 3 ] || [ $color -lt 1 ] || [[ -n ${color//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for the color. Click Finish to exit."; exit ;fi
 	IFS=$I
 	input=`echo "$succession $size $color"`
+	./graph.out "$input"
+	$(glc zoom.cpp)
 	./graph.out "$input";; 
 esac
 
