@@ -134,6 +134,9 @@ void displayer()
 	glClearColor(1.0,1.0,1.0,1.0);
 	glFlush();
 	glutSwapBuffers();
+	//int vx = glutGet(GLUT_WINDOW_WIDTH);
+	//int vy = glutGet(GLUT_WINDOW_HEIGHT);
+	//glTranslatef(init_size*scaling/10,init_size*scaling/10,0);
 	glScalef(scaling, scaling, scaling);
 }
 void init_triangle(float size)
