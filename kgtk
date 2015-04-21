@@ -83,6 +83,9 @@ case $1 in
 	IFS=$I
 	input=`echo "$succession $size $color"`
 	./graph.out "$input"
+	succession=$(echo $succession + 2 | bc)
+	size=$(echo $size + $size | bc)
+	input=`echo "$succession $size $color"`
 	$(glc zoom.cpp)
 	./graph.out "$input";; 
 esac
