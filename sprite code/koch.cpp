@@ -41,24 +41,16 @@ void findvertex(point a, point b,int m)
 	point v1,v2,diff;
 	for(int i=0;i<3;i++)
 		diff[i]=(b[i]-a[i]);
-	float s = sqrt(pow(diff[0],2)+pow(diff[1],2));
 	for(int i=0;i<3;i++)
 	{
 		v1[i]=a[i]+diff[i]/3;
 		v2[i]=v1[i]+diff[i]/3;
 	}
-	//q[0]=(v1[0]+v2[0])/2;
-	//q[1]=(v1[1]+v2[1])/2;
 	double s60 = sin(60 * M_PI *pow(-1,(m%2+power%2)) / 180.0);    
 	double c60 = cos(60 * M_PI *pow(-1,(m%2+power%2)) / 180.0);
 	c[0]= c60 * (v1[0] - v2[0]) - s60 * (v1[1] - v2[1]) + v2[0];
 	c[1]= s60 * (v1[0] - v2[0]) + c60 * (v1[1] - v2[1]) + v2[1];
 	c[2]=0;
-	//f[2]=q[2]=0;
-	//f[0]=((2*c60-1)*c[0]-(c60-1)*v2[0])/c60;
-	//f[1]=((2*c60-1)*c[1]-(c60-1)*v2[1])/c60;
-	//c[0]*=1.5*(g-m+1)/g;
-	//c[1]*=1.5*(g-m+1)/g;
 	spread(v1,v2,c,m-1);
 	if(m>1)
 	{
@@ -68,7 +60,6 @@ void findvertex(point a, point b,int m)
 }
 void spread(point a, point b, point c, int m)
 {
-	point v1,v2,v3;
 	triangle(a,b,c,m);
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_LINES);
@@ -86,12 +77,10 @@ void spread(point a, point b, point c, int m)
 }
 void koch(int m)
 {
-	//glColor3fv(color[choice]);
 	triangle(init_tri[0],init_tri[1],init_tri[2],g);
 	glFlush();
 	if(m>0)
 	{
-		//glColor3fv(color[(choice++)%3]);
 		findvertex(init_tri[0],init_tri[1],m);
 		findvertex(init_tri[1],init_tri[2],m);
 		findvertex(init_tri[2],init_tri[0],m);
@@ -117,7 +106,6 @@ void idle_display()
 		glClearColor(1,1,1,1);
 		g=i;
 		printw (-1.6, 0.2, 0, "%s : %d", "Succession number", g);
-		//glColor3fv(color[choice]);
 		power=g-1;
 		koch(g);
 		glFlush();
@@ -145,9 +133,6 @@ void displayer()
 	glClearColor(1.0,1.0,1.0,1.0);
 	glFlush();
 	glutSwapBuffers();
-	//int vx = glutGet(GLUT_WINDOW_WIDTH);
-	//int vy = glutGet(GLUT_WINDOW_HEIGHT);
-	//glTranslatef(init_size*scaling/10,init_size*scaling/10,0);
 	glScalef(scaling, scaling, scaling);
 }
 void init_triangle(float size)

@@ -18,3 +18,4 @@ Version 1.7 : Added support to interface in linux systems lacking gtkdialog by a
 Version 1.8 : Added zoom implementation as a separate program to view the enhancement of the koch curve.<br/>
 Version 1.9 : Created installer using DCP and PackJacket for cross-platform installation. <br/>
 Version 2.0 : Added color settings to koch.cpp<br/>
+Version 2.1 : 3D Rendering of koch curve in koch3d.cpp, cubing tetrahedron in 3dkoch.cpp, basic game scene rendering in game.cpp <br/>
