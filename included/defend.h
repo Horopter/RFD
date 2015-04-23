@@ -40,4 +40,8 @@ class defense
 			glVertex3fv(def[5]);
 		glEnd();
 	}
+	float getXPos()
+	{
+		(def[1][0]+def[3][0])/2;
+	}
 };

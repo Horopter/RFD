@@ -13,5 +13,6 @@
 #include"printw.h"
 #include"koch3d.h"
 #include"defend.h"
+#include"kocht.h"
 using namespace std;
 

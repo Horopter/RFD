@@ -6,6 +6,7 @@ typedef float point[3];
 point starloc[] = { { -5.5, 3, -1 }, { -3, 4, -1 }, { -8, 2, -1 }, { -2.5, 1, -1 }, { 7.5, 1, -1 }, { 3.5, 4, -1 }, { 5.5, 3, -1 }, { 10, 4, -1 }, { 9, 3, -1 }, { -10, 4, -1 }, { -4.7, -2, -1 }, { -9, 3, -1 }, { -6, -4, -1 }, { 4, -1, -1 }, { 5, -4, -1 }, { 8, -2, -1 }, { -8, -4, -1 }, { -8.7, -2.2, -1 } };
 defense *d = new defense();
 koch_devil *kd=new koch_devil();
+koch_bombs *kb=new koch_bombs(4,3,0);
 void glTranslatefv(point v)
 {
 	glTranslatef(v[0],v[1],v[2]);
@@ -49,9 +50,9 @@ void displayer()
 	glPopMatrix();
 	stars();
 	d->defender();
+	kb->kochb(4,3);
 	glFlush();
 	glutSwapBuffers();
-	glScalef(scaling, scaling, scaling);
 	i++;
 	if(i==s+1) i=0;
 }
@@ -84,6 +85,19 @@ void specialkeys(int k, int x, int y)
 			
 		break;
 	}
+}
+void beingIdle()
+{
+	int f1=0;
+	float Xp=(rand()%10)/4;
+	kd->spintetra();
+	f1=kb->attack(posX);
+	if(!f1)
+	{
+		posX=(d->def[0][0]+d->def[4][0])/2;
+	}
+	glFlush();
+
 }
 int main(int argc, char* argv[])
 {
@@ -126,7 +140,7 @@ int main(int argc, char* argv[])
 	glutCreateWindow("GAME");
 	glutDisplayFunc(displayer);
 	glutSpecialFunc(specialkeys);
-	glutIdleFunc(kd->spintetra);
+	glutIdleFunc(beingIdle);
 	glutKeyboardFunc(keyboard);
 	glutReshapeFunc(myReshape);
 	glEnable(GL_DEPTH_TEST);
