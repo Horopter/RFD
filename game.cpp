@@ -7,6 +7,7 @@ point starloc[] = { { -5.5, 3, -1 }, { -3, 4, -1 }, { -8, 2, -1 }, { -2.5, 1, -1
 defense *d = new defense();
 koch_devil *kd=new koch_devil();
 koch_bombs *kb=new koch_bombs(4,3,0);
+koch_bombs *kb1=new koch_bombs(4,3,0);
 void glTranslatefv(point v)
 {
 	glTranslatef(v[0],v[1],v[2]);
@@ -40,6 +41,7 @@ void myReshape(int w, int h)
 void displayer()
 {
 	static int i=0;
+	int f1=0,f2=0;
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glClearColor(0.0,0.0,0.0,0.0);
@@ -51,6 +53,18 @@ void displayer()
 	stars();
 	d->defender();
 	kb->kochb(4,3);
+	kb1->kochb(4,3);
+	f1=kb->attack(kb->position);
+	f2=kb1->attack(kb1->position);
+	if(!f1)
+	{
+		kb->position=(d->def[0][0]+d->def[4][0])/2;
+		posX=kb->position;
+	}
+	if(!f2)
+	{
+		kb1->position=5-kb->position;
+	}
 	glFlush();
 	glutSwapBuffers();
 	i++;
@@ -76,28 +90,20 @@ void specialkeys(int k, int x, int y)
 	{
 		case GLUT_KEY_RIGHT:
 			for(int i=0;i<6;i++)
-				d->def[i][0]+=0.2;
+				d->def[i][0]+=0.25;
 			
 		break;
 		case GLUT_KEY_LEFT:
 			for(int i=0;i<6;i++)
-				d->def[i][0]-=0.2;
+				d->def[i][0]-=0.25;
 			
 		break;
 	}
 }
 void beingIdle()
 {
-	int f1=0;
-	float Xp=(rand()%10)/4;
 	kd->spintetra();
-	f1=kb->attack(posX);
-	if(!f1)
-	{
-		posX=(d->def[0][0]+d->def[4][0])/2;
-	}
 	glFlush();
-
 }
 int main(int argc, char* argv[])
 {

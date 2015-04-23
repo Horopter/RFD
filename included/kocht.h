@@ -2,7 +2,7 @@ typedef float point[3];
 float posX=0.0;
 class koch_bombs
 {
-	private:
+	public:
 	point init[3],color[9];
 	int g,choice,position;
 	int dummy;
@@ -63,7 +63,7 @@ class koch_bombs
 		init[2][1]=2;
 		init[2][2]=0;
 		kochb(divisions,coloring);
-		dummy=attack(this->position+posX-0.5);
+		dummy=attack(this->position-0.2);
 	}
 	void triangle(point a, point b, point c, int m)
 	{
@@ -130,7 +130,7 @@ class koch_bombs
 	int attack(float x)
 	{
 		float a;
-		position=a;
+		position=x;
 		int n;
 		a=-fabs(atan(-6.25/x));
 		n=((posX<0)?-1:1);

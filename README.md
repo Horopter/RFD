@@ -21,3 +21,4 @@ Version 2.0 : Added color settings to koch.cpp<br/>
 Version 2.1 : 3D Rendering of koch curve in koch3d.cpp, cubing tetrahedron in 3dkoch.cpp, basic game scene rendering in game.cpp <br/>
 Version 2.2 : Conversion of the procedural programming into semi-object oriented programming with <br/> background improvement and code organisation<br/>
 Version 2.3 : Some more conversion to OOP and shooter from villain released as 2D Koch curve.<br/>
+Version 2.4 : Using OOPs, I managed to make an AI that locates the defender and attacks him if he ever stopped. <br/>
