@@ -15,7 +15,6 @@ class koch_bombs
 		divisions=a;
 		coloring=b;
 		mycenterx=mycentery=0;
-		position=3;
 		init[0][0]=0;
 		init[0][1]=2.512;
 		init[0][2]=0;

@@ -8,6 +8,7 @@
 #endif
 #include<cstdlib>
 #include<ctime>
+#include<cstdio>
 #include"graph.h"
 #include"printw.h"
 using namespace std;
