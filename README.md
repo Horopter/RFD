@@ -1,4 +1,4 @@
-# koch_snowflake
+# RFD : Revenge of Fractal Dimensions
 ###This is my official github repo created for the 6th semester graphics project.
 * graph.out : It is the binary file that is a result of the code in ready to execute format in unix mode.
 * koch.cpp : Source code to create Koch snowflake.
@@ -6,6 +6,9 @@
 * printw.h : It is a custom header file with <br/>
 		printw function written by Ali BaderEddin (modified under GNU GPL) and <br/>
 		_vscprintf written by ismail of stack overflow. <br/>
+* GL : It includes all the files necessary to compile OpenGL programs which use standard definitions.
+* included : It contains the custom header files written by me to enable this game.
+* Installer material : It contains all the materials required to install the game.
 
 Version 1.0 : Koch curve function <br/>
 Version 1.1 : Adding animation to simulate the progress of the function <br/>
