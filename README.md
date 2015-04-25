@@ -25,3 +25,5 @@ Version 2.4 : Using OOPs, I managed to make an AI that locates the defender and 
 Version 2.5 : Collision detection enabled. Technically now, it's a dodge game. Some code for offensive mode exists in comments. <br/>
 Version 2.6 : Offensive mode activated. There is a glitch when game ends which has to be eliminated. <br/>
 Version 2.7 : Glitch removed. Interface created. Activated through rfdlin. Taking this to windows is left <br/>
+Version 2.8 : Code isolation. I have removed the code of sprites from here. At this point it is complete source code oriented document. I have a seperate repo for sprite code.<br/>
+
