@@ -24,3 +24,4 @@ Version 2.3 : Some more conversion to OOP and shooter from villain released as 2
 Version 2.4 : Using OOPs, I managed to make an AI that locates the defender and attacks him if he ever stopped. <br/>
 Version 2.5 : Collision detection enabled. Technically now, it's a dodge game. Some code for offensive mode exists in comments. <br/>
 Version 2.6 : Offensive mode activated. There is a glitch when game ends which has to be eliminated. <br/>
+Version 2.7 : Glitch removed. Interface created. Activated through rfdlin. Taking this to windows is left <br/>

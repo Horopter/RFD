@@ -2,10 +2,10 @@
 chmod 755 glc kgtk kzen
 if [[ $(compgen -c | grep -m 1 "gtkdialog") ]]
 then 
-	./kgtk
+	./rfdgtk
 else 
 	if  [[ $(compgen -c | grep -m 1 "zenity") ]]
 	then
-		./kzen
+		./rfdzen
 	fi
 fi

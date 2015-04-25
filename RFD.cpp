@@ -1,8 +1,9 @@
 #include"included/includer.h"
-#include<deque>
+#include<unistd.h>
 int s,choice=1,g,sx=0;
 int counter =20,hits=0;
 int cx, cy;
+int end=0;
 typedef float point[3];
 point starloc[] = { { -5.5, 3, -1 }, { -3, 4, -1 }, { -8, 2, -1 }, { -2.5, 1, -1 }, { 7.5, 1, -1 }, { 3.5, 4, -1 }, { 5.5, 3, -1 }, { 10, 4, -1 }, { 9, 3, -1 }, { -10, 4, -1 }, { -4.7, -2, -1 }, { -9, 3, -1 }, { -6, -4, -1 }, { 4, -1, -1 }, { 5, -4, -1 }, { 8, -2, -1 }, { -8, -4, -1 }, { -8.7, -2.2, -1 } };
 int top=-1;
@@ -89,18 +90,6 @@ void counterinc()
 		}
 	}
 }
-void scorecard()
-{
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-	glClearColor(0.0,0.0,0.0,0.0);
-	stars();
-	printw (-1, 1, 0, "%s : %d", "Hits :", hits);
-	printw (-1, 0, 0, "%s : %d", "Lives used :",20-counter);
-	printw (-1, 1, 0, "%s : %d", "Score :", hits*100-(20-counter)*25);
-	glFlush();
-	
-}
 void displayer()
 {
 	int f1=0,f2=0;
@@ -145,21 +134,25 @@ void displayer()
 	}
 	else
 	{
+		if(end==1)
+			return;
 		delete kd;
 		delete kb;
 		delete kb1;
 		delete d;
 		for(int i=0;i<100;i++)
 			delete me[i];
-		scorecard();
+		end=1;
 	}
 }
 void display()
 {
+	static int i=0;
 	if(counter>0)
 		displayer();
 	else
-		scorecard();
+		return;
+	//cout << "I am called. " << i++ << endl;
 }
 void keyboard(unsigned char k, int x, int y)
 {
@@ -188,9 +181,7 @@ void keyboard(unsigned char k, int x, int y)
 				if(sx==99)
 					sx=0;
 				break;
-			}
-			else
-				scorecard();	
+			}	
 			
 	}
     glutPostRedisplay();
@@ -213,16 +204,19 @@ void specialkeys(int k, int x, int y)
 		}
 	}
 	else
-	{
-		scorecard();
-	}
+		return;
 }
 void beingIdle()
 {
 	if(counter>0)
 		kd->spintetra();	
 	else
-		scorecard();
+	{
+		char cmdbuf[256];
+		snprintf(cmdbuf, sizeof(cmdbuf), "echo %d", hits);
+		system(cmdbuf);
+		glutDestroyWindow(1);
+	}
 	glFlush();
 }
 int main(int argc, char* argv[])
@@ -230,16 +224,8 @@ int main(int argc, char* argv[])
 	int m_width=600;
 	int m_height=600;
 	#if !(defined(__gnu_linux__)||defined(__linux__))
-		cout << "Enter the number of successions : [0-7] ";
+		cout << "Enter the number of successions : [0-5] ";
 		cin >> s;
-		cout << "Next you will have to enter the size of the triangle, a float point value between 0 and 5." << endl;
-		cout << "Enter the initial size of the triangle : ";
-		cin >> init_size;
-		if(init_size>5)
-		{
-			cout << "Maximum limit of size is 5. Restart the program. Bye!";
-			exit(0);
-		}
 		cout << "Enter the initial color of the triangle you wish to see : \n1. RED \n2. GREEN \n3. BLUE \n Enter your choice :";
 		cin >> choice;
 		choice-=1;
@@ -252,26 +238,29 @@ int main(int argc, char* argv[])
 			exit(0);
 		}
 		s = strtod(argv[1],&pEnd);
-		init_size = strtod(pEnd,&pEnd);
 		choice = strtod(pEnd,NULL);
 		choice--;
 		g=0;
 	#endif
-	glutInit(&argc,argv);
-	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
-	glutInitWindowSize(m_width,m_height);
-	cx = glutGet(GLUT_SCREEN_WIDTH);
-	cy = glutGet(GLUT_SCREEN_HEIGHT);
-	glutInitWindowPosition ((cx-m_width) / 2, (cy-m_height) / 2);
-	glutCreateWindow("RFD : Revenge of Fractal Dimensions");
-	glutFullScreen();
-	glutDisplayFunc(display);
-	glutSpecialFunc(specialkeys);
-	glutIdleFunc(beingIdle);
-	glutKeyboardFunc(keyboard);
-	glutReshapeFunc(myReshape);
-	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.0,0.0,0.0,0.0);
+	if(counter>0)
+	{
+		glutInit(&argc,argv);
+		glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
+		glutInitWindowSize(m_width,m_height);
+		cx = glutGet(GLUT_SCREEN_WIDTH);
+		cy = glutGet(GLUT_SCREEN_HEIGHT);
+		glutInitWindowPosition ((cx-m_width) / 2, (cy-m_height) / 2);
+		glutCreateWindow("RFD : Revenge of Fractal Dimensions");
+		glutSetWindow(1);
+		glutFullScreen();
+		glutDisplayFunc(display);
+		glutSpecialFunc(specialkeys);
+		glutIdleFunc(beingIdle);
+		glutKeyboardFunc(keyboard);
+		glutReshapeFunc(myReshape);
+		glEnable(GL_DEPTH_TEST);
+		glClearColor(0.0,0.0,0.0,0.0);
+	}
 	glutMainLoop();
-	return 0;
+	return hits;
 }

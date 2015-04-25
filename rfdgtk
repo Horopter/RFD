@@ -1,0 +1,76 @@
+#!/bin/bash
+current=`pwd`
+zenity --info --ok-label="Start" --width="500" --height="200" --title="Horopter Inc." --text "RFD is loaded. Click start to continue."
+zenity --info --ok-label="OK" --width="500" --height="300" --title="Horopter Inc." --text "We have wondered from years, what lies in other dimensions... "
+zenity --info --ok-label="OK" --width="500" --height="300" --title="Horopter Inc." --text "Until recently we didn't know the structure or\nlook of a wormhole.... "
+zenity --info --ok-label="OK" --width="500" --height="300" --title="Horopter Inc." --text "Our enemy was hidden... \nIt was not 1D..\n not 2D... \nnot 3D... Ironically it was 2.3219D (what?)"
+zenity --info --ok-label="OK" --width="500" --height="300" --title="Horopter Inc." --text "It was the fractal dimension,\n one which we are fascinated with since pythagorean age.\n We ignored it's value in daily life limiting it to graphics.\n It has come back to hunt us."
+zenity --info --ok-label="OK" --width="500" --height="300" --title="Horopter Inc." --text "But we have our defender Manyu who will save us...."
+zenity --info --ok-label="OK" --width="500" --height="300" --title="Horopter Inc." --text "Press e to exit fullscreen,\n q to quit any time,\n (left arrow) to move left,\n (right arrow) to move right\n and hit (spacebar) to shoot evil Kochus."
+export PATH=$PATH:$current
+GTKDIALOG=gtkdialog 
+export MAIN_DIALOG=' 
+<window title="Koch Snowflake" icon-name="gtk-about" resizable="false" width-request="700" height-request="500"> 
+<vbox> 
+	<frame '`gettext $" Villain "`'>
+		<text use-markup="true">
+			<label>"'`gettext $" Enter the Villain :  "`'"</label>
+		</text>
+	<hbox space-fill="true"> 
+		<combobox>	 
+			<variable>succession</variable> 
+			<item>1</item> 
+			<item>2</item> 
+			<item>3</item>
+			<item>4</item>
+			<item>5</item> 
+		</combobox> 
+	</hbox> 
+	</frame>
+<hseparator width-request="240"></hseparator> 
+	<frame '`gettext $" Color selection "`'>
+		<text use-markup="true">
+			<label>"'`gettext $" Enter the Kingdom : "`'"</label>
+		</text>
+		<text use-markup="true">
+			<label>"'`gettext $" 1.RED         2.GREEN          3.BLUE "`'"</label>
+		</text>
+		<text use-markup="true">
+			<label>"'`gettext $" [ 1 - 3 ]  "`'"</label>
+		</text>
+	<hbox space-fill="true"> 
+		<combobox>	 
+			<variable>color</variable>
+			<item>1</item> 
+			<item>2</item> 
+			<item>3</item> 
+		</combobox>
+	</hbox> 
+	</frame> 
+<hseparator width-request="240"></hseparator> 
+	<hbox> 
+		<button ok></button> 
+	</hbox> 
+</vbox> 
+</window> 
+'
+$res=0
+$(glc RFD.cpp)
+echo "Compilation done." 
+case $1 in 
+	-d | --dump) echo "$MAIN_DIALOG" ;; 
+	*) I=$IFS; IFS="" 
+	for STATEMENTS in  $($GTKDIALOG --program=MAIN_DIALOG --center); do 
+   		eval $STATEMENTS 
+	done 
+	if [ $EXIT == "abort" ]
+	then
+		exit 0
+	fi
+	if [ $succession -gt 7 ] || [ $succession -lt 0 ] || [[ -n ${succesion//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for number of successions. Click Finish to exit."; exit ;fi
+	if [ $color -gt 3 ] || [ $color -lt 1 ] || [[ -n ${color//[0-9]/} ]]; then zenity --info --title="Horopter Inc." --ok-label="Finish" --width="500" --height="300" --text "Invalid entry for the color. Click Finish to exit."; exit ;fi
+	IFS=$I
+	input=`echo "$succession $color"`
+	res=`./graph.out "$input"`
+	zenity --info --ok-label="Okay" --width="500" --height="200" --title="Scorecard" --text "Your score is $res. Restart to play again." ;;
+esac
