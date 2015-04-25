@@ -1,105 +1,17 @@
 #include"included/includer.h"
-int s,choice=1,g;
-int counter =20;
+#include<deque>
+int s,choice=1,g,sx=0;
+int counter =20,hits=0;
 int cx, cy;
 typedef float point[3];
 point starloc[] = { { -5.5, 3, -1 }, { -3, 4, -1 }, { -8, 2, -1 }, { -2.5, 1, -1 }, { 7.5, 1, -1 }, { 3.5, 4, -1 }, { 5.5, 3, -1 }, { 10, 4, -1 }, { 9, 3, -1 }, { -10, 4, -1 }, { -4.7, -2, -1 }, { -9, 3, -1 }, { -6, -4, -1 }, { 4, -1, -1 }, { 5, -4, -1 }, { 8, -2, -1 }, { -8, -4, -1 }, { -8.7, -2.2, -1 } };
-/*
-class shooter
-{
-	public:
-	typedef float point[3];
-	int id,c;
-	static int top=-1;
-	point color[9];
-	point shape[4];
-	point init;
-	shooter(point a)
-	{
-		init[0]=a[0];
-		init[1]=a[1];
-		init[2]=a[2];
-		color[0][0]=1;
-		color[0][1]=0;
-		color[0][2]=0;
-		color[1][0]=0;
-		color[1][1]=1;
-		color[1][2]=0;
-		color[2][0]=0;
-		color[2][1]=0;
-		color[2][2]=1;
-		color[3][0]=1;
-		color[3][1]=1;
-		color[3][2]=0;
-		color[4][0]=0;
-		color[4][1]=1;
-		color[4][2]=1;
-		color[5][0]=1;
-		color[5][1]=0;
-		color[5][2]=1;
-		color[6][0]=0.5;
-		color[6][1]=0.5;
-		color[6][2]=1;
-		color[7][0]=0;
-		color[7][1]=0.5;
-		color[7][2]=0.5;
-		color[8][0]=0.8;
-		color[8][1]=0;
-		color[8][2]=0.7;
-		drawshooter();
-		shoot();
-		instack();
-		setidnc();
-	}
-	~shooter()
-	{
-		outstack();
-	}
-	static void setidnc()
-	{
-		id=top+1;
-		c=rand()%9;
-	}
-	static void instack()
-	{
-		top++;
-	}
-	static void outstack()
-	{
-		top--;
-	}
-	void drawshooter()
-	{
-		glBegin(GL_POLYGON);
-			glColor3fv(color[c]);
-			glVertex3f(init[0]-0.05,init[1],0);
-			glVertex3f(init[0]+0.05,init[1],0);
-			glVertex3f(init[0],init[1]+0.1,0);
-		glEnd();
-	}
-	void shoot()
-	{
-		for(int i=0;i<n;i++)
-			shape[i][1]+=0.2;
-	}
-	
-};
-int shooter::top=-1;
+int top=-1;
+point see={0,-4,0};
+shooter* me[100] = {new shooter(see)};
 defense *d = new defense();
 koch_devil *kd=new koch_devil();
 koch_bombs *kb=new koch_bombs(4,3,0);
 koch_bombs *kb1=new koch_bombs(4,3,0);
-int stack s[S_MAX];
-int top=-1;
-void push(int id)
-{
-	s[top++]=id;
-}
-void pop()
-{
-	top--;
-}
-*/
 void glTranslatefv(point v)
 {
 	glTranslatef(v[0],v[1],v[2]);
@@ -167,46 +79,87 @@ void counterinc()
 		}
 
 	}
-	//cout<< "kb1 cen y :: " << kb1->mycentery << endl;
-	//if(fabs(-4-kb1->mycentery)<0.5)
-	//	if(d->def[0][0]>=kb1->mycenterx && d->def[4][0]<=kb1->mycenterx)
-	//		counter--;
+	for(int i=0;i<sx;i++)
+	{
+		//cout << i << " " << me[i]->getinitx() << " " << me[i]->getinity()<< endl;
+		if((me[i]->getinitx()>=-1.5) && (me[i]->getinitx()<=1.5) && (me[i]->getinity()>2.6) && (me[i]->getinity()<2.8))
+		{
+			hits++;
+			me[i]->putx(11,11);
+		}
+	}
 }
-void displayer()
+void scorecard()
 {
-	static int i=0;
-	int f1=0,f2=0;
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glClearColor(0.0,0.0,0.0,0.0);
-	printw (6, 4.5, 0, "%s : %d", "Lives left :", counter);
-	if(counter==0)
-		exit(0);
-	g=i;
-	glPushMatrix();
-	glRotatef(kd->theta,0,1,0);
-	kd->koch(g,choice);
-	glPopMatrix();
 	stars();
-	d->defender();
-	kb->kochb(4,3);
-	kb1->kochb(4,3);
-	f1=kb->attack(kb->position);
-	f2=kb1->attack(kb1->position);
-	counterinc();
-	if(!f1)
-	{
-		kb->position=(d->def[0][0]+d->def[4][0])/2;
-		posX=kb->position;
-	}
-	if(!f2)
-	{
-		kb1->position=4-kb->position;
-	}
+	printw (-1, 1, 0, "%s : %d", "Hits :", hits);
+	printw (-1, 0, 0, "%s : %d", "Lives used :",20-counter);
+	printw (-1, 1, 0, "%s : %d", "Score :", hits*100-(20-counter)*25);
 	glFlush();
-	glutSwapBuffers();
-	i++;
-	if(i==s+1) i=0;
+	
+}
+void displayer()
+{
+	int f1=0,f2=0;
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	glClearColor(0.0,0.0,0.0,0.0);	
+	stars();
+	if(counter>0)
+	{
+		static int i=0;
+		printw (6, 4.5, 0, "%s : %d", "Lives left :", counter);
+		printw (-6, 4.5, 0, "%s : %d", "Hits :", hits);
+		g=i;
+		glPushMatrix();
+		glRotatef(kd->theta,0,1,0);
+		kd->koch(g,choice);
+		glPopMatrix();
+		d->defender();
+		for(int i=0;i<sx;i++)
+		{
+			me[i]->drawshooter();
+			me[i]->shoot();
+		}
+		kb->kochb(4,3);
+		kb1->kochb(4,3);
+		f1=kb->attack(kb->position);
+		f2=kb1->attack(kb1->position);
+		counterinc();
+		if(!f1)
+		{
+			kb->position=(d->def[0][0]+d->def[4][0])/2;
+			posX=kb->position;
+		}
+		if(!f2)
+		{
+			kb1->position=4-kb->position;
+		}
+		glFlush();
+		glutSwapBuffers();
+		i++;
+		if(i==s+1) i=0;
+	}
+	else
+	{
+		delete kd;
+		delete kb;
+		delete kb1;
+		delete d;
+		for(int i=0;i<100;i++)
+			delete me[i];
+		scorecard();
+	}
+}
+void display()
+{
+	if(counter>0)
+		displayer();
+	else
+		scorecard();
 }
 void keyboard(unsigned char k, int x, int y)
 {
@@ -221,28 +174,55 @@ void keyboard(unsigned char k, int x, int y)
 			break;
 		case 'q':
 			exit(0);
+		case ' ':
+			if(counter>0)
+			{
+				sx++;
+				point p;
+				p[0]=d->def[2][0];
+				p[1]=d->def[2][1];
+				p[2]=0;
+				me[sx-1]=new shooter(p);
+				for(int i=0;i<sx;i++)
+					me[i]->shoot();
+				if(sx==99)
+					sx=0;
+				break;
+			}
+			else
+				scorecard();	
+			
 	}
     glutPostRedisplay();
 }
 void specialkeys(int k, int x, int y)
 {
-	switch(k)
+	if(counter>0)
 	{
-		case GLUT_KEY_RIGHT:
-			for(int i=0;i<6;i++)
-				d->def[i][0]+=0.25;
-			
-		break;
-		case GLUT_KEY_LEFT:
-			for(int i=0;i<6;i++)
-				d->def[i][0]-=0.25;
-			
-		break;
+		switch(k)
+		{
+			case GLUT_KEY_RIGHT:
+				for(int i=0;i<6;i++)
+					d->def[i][0]+=0.25;
+				
+			break;
+			case GLUT_KEY_LEFT:
+				for(int i=0;i<6;i++)
+					d->def[i][0]-=0.25;			
+			break;
+		}
+	}
+	else
+	{
+		scorecard();
 	}
 }
 void beingIdle()
 {
-	kd->spintetra();
+	if(counter>0)
+		kd->spintetra();	
+	else
+		scorecard();
 	glFlush();
 }
 int main(int argc, char* argv[])
@@ -285,7 +265,7 @@ int main(int argc, char* argv[])
 	glutInitWindowPosition ((cx-m_width) / 2, (cy-m_height) / 2);
 	glutCreateWindow("RFD : Revenge of Fractal Dimensions");
 	glutFullScreen();
-	glutDisplayFunc(displayer);
+	glutDisplayFunc(display);
 	glutSpecialFunc(specialkeys);
 	glutIdleFunc(beingIdle);
 	glutKeyboardFunc(keyboard);

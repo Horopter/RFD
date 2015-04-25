@@ -14,5 +14,6 @@
 #include"koch3d.h"
 #include"defend.h"
 #include"kocht.h"
+#include"shooter.h"
 using namespace std;
 
