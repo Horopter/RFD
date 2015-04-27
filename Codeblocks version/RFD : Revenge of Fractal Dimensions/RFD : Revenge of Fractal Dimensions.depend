@@ -1,0 +1,47 @@
+# depslib dependency file v1.0
+1430126665 source:/home/Horopter/projects/RFD : Revenge of Fractal Dimensions/main.cpp
+	"included/includer.h"
+	<unistd.h>
+
+1430052092 /home/Horopter/projects/RFD : Revenge of Fractal Dimensions/included/includer.h
+	<iostream>
+	<cmath>
+	<unistd.h>
+	<windows.h>
+	<cstdlib>
+	<ctime>
+	<cstdio>
+	"graph.h"
+	"printw.h"
+	"koch3d.h"
+	"defender.h"
+	"kocht.h"
+	"shooter.h"
+
+1430052043 /home/Horopter/projects/RFD : Revenge of Fractal Dimensions/included/graph.h
+	"GL/freeglut.h"
+	"GL/freeglut_std.h"
+	"GL/gl.h"
+	"GL/glu.h"
+	"GL/glut.h"
+	"GL/glx.h"
+	"GL/gl.h"
+	"GL/glu.h"
+	"GL/glut.h"
+
+1430055879 /home/Horopter/projects/RFD : Revenge of Fractal Dimensions/included/printw.h
+	<stdio.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+
+1430055088 /home/Horopter/projects/RFD : Revenge of Fractal Dimensions/included/koch3d.h
+
+1430055108 /home/Horopter/projects/RFD : Revenge of Fractal Dimensions/included/defender.h
+
+1430055145 /home/Horopter/projects/RFD : Revenge of Fractal Dimensions/included/kocht.h
+	<cmath>
+
+1430052259 /home/Horopter/projects/RFD : Revenge of Fractal Dimensions/included/shooter.h
+	<cmath>
+

@@ -1,14 +1,9 @@
 # RFD : Revenge of Fractal Dimensions
 ###This is my official github repo created for the 6th semester graphics project.
-* graph.out : It is the binary file that is a result of the code in ready to execute format in unix mode.
-* koch.cpp : Source code to create Koch snowflake.
-* graph.h : It is a custom header file. Include this in the GL directory of the system you use.
-* printw.h : It is a custom header file with <br/>
-		printw function written by Ali BaderEddin (modified under GNU GPL) and <br/>
-		_vscprintf written by ismail of stack overflow. <br/>
-* GL : It includes all the files necessary to compile OpenGL programs which use standard definitions.
-* included : It contains the custom header files written by me to enable this game.
-* Installer material : It contains all the materials required to install the game.
+* Codeblocks : It contains codeblocks supported version of source code.
+* RFD packages : It contains source code files for Linux (plain source code) and Windows (VS 2013 support).
+* Installer material : The code snippets required for installing.
+* LICENSE : GNU GPL License.
 
 Version 1.0 : Koch curve function <br/>
 Version 1.1 : Adding animation to simulate the progress of the function <br/>
@@ -29,4 +24,5 @@ Version 2.5 : Collision detection enabled. Technically now, it's a dodge game. S
 Version 2.6 : Offensive mode activated. There is a glitch when game ends which has to be eliminated. <br/>
 Version 2.7 : Glitch removed. Interface created. Activated through rfdlin. Taking this to windows is left <br/>
 Version 2.8 : Code isolation. I have removed the code of sprites from here. At this point it is complete source code oriented document. I have a seperate repo for sprite code.<br/>
+Version 2.9 : Support for Windows enabled. <br/>
 
