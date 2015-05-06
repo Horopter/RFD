@@ -1,12 +1,34 @@
+/* RFD : Revenge of Fractal Dimensions.
+   Copyright (C) 2015 Horopter Inc.
+
+   The Horopter RFD.cpp is part of free software RFD;
+   you can redistribute it and/or modify it under the terms of the
+   GNU Lesser General Public License as published by the Free Software Foundation;
+
+   Like GNU libraries, the Horopter RFD is distributed in the hope that 
+   it will be useful, knowledgeable but WITHOUT ANY WARRANTY;
+   without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with the Horopter 'included' Library; if not, see
+   <http://www.gnu.org/licenses/>. 
+ */
+//The game strategy is not discussed in the interest of gamers.
 #include"included/includer.h"
-#include<unistd.h>
 int s,choice=1,g,sx=0;
 int counter =20,hits=0;
 int cx, cy;
 int termer=0;
+/*
+It is defined to store values in triplets. Saves time and improves understanding of object.
+In case of coordinates, it stores three values (x,y,z) and in case of colors it stores three values (R,G,B)
+*/
 typedef float point[3];
+//Background definition
 point starloc[] = { { -5.5, 3, -1 }, { -3, 4, -1 }, { -8, 2, -1 }, { -2.5, 1, -1 }, { 7.5, 1, -1 }, { 3.5, 4, -1 }, { 5.5, 3, -1 }, { 10, 4, -1 }, { 9, 3, -1 }, { -10, 4, -1 }, { -4.7, -2, -1 }, { -9, 3, -1 }, { -6, -4, -1 }, { 4, -1, -1 }, { 5, -4, -1 }, { 8, -2, -1 }, { -8, -4, -1 }, { -8.7, -2.2, -1 } };
 int top=-1;
+//Object definition
 point see={0,-4,0};
 shooter* me[100] = {new shooter(see)};
 defense *d = new defense();
@@ -14,10 +36,12 @@ koch_devil *kd=new koch_devil();
 koch_bombs *kb=new koch_bombs(4,3,0);
 koch_bombs *kb1=new koch_bombs(4,3,0);
 printer *p = new printer();
+//Customisation of translate function
 void glTranslatefv(point v)
 {
 	glTranslatef(v[0],v[1],v[2]);
 }
+// Filling up background with stars.
 void stars()
 {
 	glColor3f(1.0, 1.0, 1.0);
@@ -29,6 +53,7 @@ void stars()
 		glPopMatrix();
 	}
 }
+//Reshape function
 void myReshape(int w, int h)
 {
 	if(w<600 || h<600)
@@ -44,6 +69,7 @@ void myReshape(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 	glutPostRedisplay();
 }
+// Update the counters
 void counterinc()
 {
 	//cout<< "kb cen y :: " << kb->mycentery << endl;
@@ -91,6 +117,7 @@ void counterinc()
 		}
 	}
 }
+//Display function when lives are present
 void displayer()
 {
 	int f1=0,f2=0;
@@ -98,7 +125,7 @@ void displayer()
 	glLoadIdentity();
 	glClearColor(0.0,0.0,0.0,0.0);
 	stars();
-	if((counter>0)||(hits==32750))
+	if((counter>0)||(hits==32750))//Max score is 32750
 	{
 		static int i=0;
 		p->printw(-6.5,4.5,hits,"Hits");
@@ -146,6 +173,7 @@ void displayer()
 		termer=1;
 	}
 }
+//Display callback function
 void display()
 {
 	if(counter>0)
@@ -154,6 +182,7 @@ void display()
 		return;
 	//cout << "I am called. " << i++ << endl;
 }
+// Keyboard Function
 void keyboard(unsigned char k, int x, int y)
 {
 	switch (k)
@@ -190,6 +219,7 @@ void keyboard(unsigned char k, int x, int y)
 	}
     glutPostRedisplay();
 }
+//Special keys
 void specialkeys(int k, int x, int y)
 {
 	if(counter>0)
@@ -210,6 +240,7 @@ void specialkeys(int k, int x, int y)
 	else
 		return;
 }
+//Idle function.
 void beingIdle()
 {
 	if(counter>0)
@@ -219,10 +250,11 @@ void beingIdle()
 		char cmdbuf[256];
 		snprintf(cmdbuf, sizeof(cmdbuf), "echo %d", hits);
 		system(cmdbuf);
-		glutDestroyWindow(1);
+		glutDestroyWindow(1);//Destroy window
 	}
 	glFlush();
 }
+// Main function
 int main(int argc, char* argv[])
 {
 	int m_width=600;
@@ -232,9 +264,9 @@ int main(int argc, char* argv[])
 	if(argc!=0)
 	{
 	#if !(defined(__gnu_linux__)||defined(__linux__))
-		cout << "Enter the number of successions : [0-5] ";
+		cout << "Enter the span of Villain : [0-5] ";
 		cin >> s;
-		cout << "Enter the initial color of the triangle you wish to see : \n1. RED \n2. GREEN \n3. BLUE \n Enter your choice :";
+		cout << "Enter the initial color of the Villain you wish to see : \n1. RED \n2. GREEN \n3. BLUE \n Enter your choice :";
 		cin >> choice;
 		choice-=1;
 		g=0;

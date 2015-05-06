@@ -1,17 +1,50 @@
+/* Define defender with other headers in RFD.
+   Or use includer.h
+   Copyright (C) 2015 Horopter Inc.
+   This file is part of the Horopter 'included' Library.
+
+   The Horopter 'included' Library is part of free software RFD;
+   you can redistribute it and/or modify it under the terms of the
+   GNU Lesser General Public License as published by the Free Software Foundation;
+
+   Like GNU libraries, the Horopter 'included' Library is distributed in the hope that 
+   it will be useful, knowledgeable but WITHOUT ANY WARRANTY;
+   without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with the Horopter 'included' Library; if not, see
+   <http://www.gnu.org/licenses/>. 
+ */
+
 #ifndef KOCHT_H_INCLUDED
 #define KOCHT_H_INCLUDED
-
+//cmath library for mathematical functions.
 #include<cmath>
+// if PI value not available in cmath, this is the value we will be using.
+#ifndef M_PI
+#define M_PI 3.14159
+#endif
+/*
+It is defined to store values in triplets. Saves time and improves understanding of object.
+In case of coordinates, it stores three values (x,y,z) and in case of colors it stores three values (R,G,B)
+*/
 typedef float point[3];
+//initial position of bombing.
 float posX=0.0;
+/*
+Creates the object Kochus' bombs in the game. It is the Koch's curve based off an isosceles triangle.
+Instead of taking triangles, we have considered tetrahedrons. The base of new tetrahedron is concentric
+with the face it rests on and is symmetrically positioned.
+*/
 class koch_bombs
 {
 	public:
-	point init[3],color[9];
-	int g,choice,position;
-	float mycenterx, mycentery;
-	int dummy;
-	int divisions, coloring;
+	point init[3],color[9];// initial coordinates and color.
+	int g,choice,position; // successions,color choice,position of object.
+	float mycenterx, mycentery;// not used but provides debugging opportunity.
+	int dummy;// just to get return value.
+	int divisions, coloring;//temporaries.
 	public:
 	koch_bombs(int a, int b, float p)
 	{
@@ -58,6 +91,7 @@ class koch_bombs
 		kochb(a,b);
 		dummy=attack(p);
 	}
+	//reset: to make it appear as if we have infinite ammo with villain.
 	void reset()
 	{
 		init[0][0]=0;
@@ -74,6 +108,7 @@ class koch_bombs
 		kochb(divisions,coloring);
 		dummy=attack(this->position-0.1*pow(-1,rand()%5));
 	}
+	//triangle rendering with sparkle effect created by randomization. 
 	void triangle(point a, point b, point c, int m)
 	{
 		glColor3fv(color[(m+rand()%4)%9]);
@@ -83,6 +118,7 @@ class koch_bombs
 			glVertex3fv(c);
 		glEnd();
 	}
+	//Find vertex for next succession.
 	void findvertex(point a, point b,int m)
 	{
 		point c= {0.0};
@@ -106,6 +142,7 @@ class koch_bombs
 			findvertex(b,v2,m-1);
 		}
 	}
+	//Call for nect succession.
 	void spread(point a, point b, point c, int m)
 	{
 		triangle(a,b,c,m);
@@ -122,6 +159,7 @@ class koch_bombs
 		else
 			return;
 	}
+	// creates bombs.
 	void kochb(int m,int c)
 	{
 		g=m;
@@ -135,6 +173,7 @@ class koch_bombs
 			findvertex(init[2],init[0],m);
 		}
 	}
+	//changes position according to object postion to appear as if it were attacking.
 	int attack(float x)
 	{
 		float a;

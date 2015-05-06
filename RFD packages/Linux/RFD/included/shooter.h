@@ -1,8 +1,32 @@
+/* Define shooter with other headers in RFD.
+   Or use includer.h
+   Copyright (C) 2015 Horopter Inc.
+   This file is part of the Horopter 'included' Library.
+
+   The Horopter 'included' Library is part of free software RFD;
+   you can redistribute it and/or modify it under the terms of the
+   GNU Lesser General Public License as published by the Free Software Foundation;
+
+   Like GNU libraries, the Horopter 'included' Library is distributed in the hope that 
+   it will be useful, knowledgeable but WITHOUT ANY WARRANTY;
+   without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public
+   License along with the Horopter 'included' Library; if not, see
+   <http://www.gnu.org/licenses/>. 
+ */
+
 #ifndef SHOOTER_H_INCLUDED
 #define SHOOTER_H_INCLUDED
-
+// Enable mathematical functions.
 #include<cmath>
+/*
+It is defined to store values in triplets. Saves time and improves understanding of object.
+In case of coordinates, it stores three values (x,y,z) and in case of colors it stores three values (R,G,B)
+*/
 typedef float point[3];
+//Creates bullets for the defender.
 class shooter
 {
 	private:
@@ -13,10 +37,11 @@ class shooter
 	point shape[4];
 	shooter(point a)
 	{
-		c=rand()%7;
-		init[0]=a[0];
+		c=rand()%7;//arbitrary color assignment.
+		init[0]=a[0];//Initial position decided by argument.
 		init[1]=a[1];
 		init[2]=a[2];
+		//Color pallettes
 		color[0][0]=1;
 		color[0][1]=0;
 		color[0][2]=0;
@@ -47,6 +72,7 @@ class shooter
 		drawshooter();
 		shoot();
 	}
+	//Rendering the shooting bullets based off on arbitrary color assigned at creation.
 	void drawshooter()
 	{
 		glBegin(GL_POLYGON);
@@ -56,10 +82,12 @@ class shooter
 			glVertex3f(init[0],init[1]+0.1,0);
 		glEnd();
 	}
+	//Increment postion in Y axis by specified unit.
 	void shoot()
 	{
 		init[1]+=0.1;
 	}
+	//Position access.
 	float getinitx()
 	{
 		return this->init[0];
@@ -68,6 +96,7 @@ class shooter
 	{
 		return this->init[1];
 	}
+	//Position update.
 	void putx(float x, float y)
 	{
 		init[0]=x;
