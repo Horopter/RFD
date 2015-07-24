@@ -1,0 +1,12 @@
+(C) Horopter Inc.
+
+RFD - Support : Designed for Visual Studio 2010
+
+First thing to do would be to place all the files in their correct directories.
+glut.h: ‘C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\GL\’
+glut32.lib: ‘C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\lib\’
+glut32.dll: ‘C:\Windows\System32\’
+For 64-bit machines, you will want to do this.
+glut32.dll: ‘C:\Windows\SysWOW64\’
+
+Happy gaming!!!
