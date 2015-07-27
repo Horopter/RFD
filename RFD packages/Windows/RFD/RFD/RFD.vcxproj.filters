@@ -20,28 +20,28 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="defender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="koch3d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kocht.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="printw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shooter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="glut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defender.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graph.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="koch3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kocht.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="printw.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shooter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

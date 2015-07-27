@@ -77,14 +77,14 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="defender.h" />
+    <ClInclude Include="defender.hpp" />
     <ClInclude Include="glut.h" />
-    <ClInclude Include="graph.h" />
-    <ClInclude Include="includer.h" />
-    <ClInclude Include="koch3d.h" />
-    <ClInclude Include="kocht.h" />
-    <ClInclude Include="printw.h" />
-    <ClInclude Include="shooter.h" />
+    <ClInclude Include="graph.hpp" />
+    <ClInclude Include="includer.hpp" />
+    <ClInclude Include="koch3d.hpp" />
+    <ClInclude Include="kocht.hpp" />
+    <ClInclude Include="printw.hpp" />
+    <ClInclude Include="shooter.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

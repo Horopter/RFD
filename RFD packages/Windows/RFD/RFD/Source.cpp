@@ -15,7 +15,7 @@ License along with the Horopter 'included' Library; if not, see
 <http://www.gnu.org/licenses/>.
 */
 //The game strategy is not discussed in the interest of gamers.
-#include"includer.h"
+#include"includer.hpp"
 int s, choice = 3, g, sx = 0;
 int counter = 20, hits = 0;
 int cx, cy;
